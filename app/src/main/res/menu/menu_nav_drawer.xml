@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/local_list_fragment"
+            android:title="@string/drawer_item_title_local_drafts" />
+        <item
+            android:id="@+id/sent_list_fragment"
+            android:title="@string/drawer_item_title_sent_tweetstorms" />
+        <item
+            android:id="@+id/partially_sent_list_fragment"
+            android:title="@string/drawer_item_title_partially_sent_tweetstorms" />
+    </group>
+
+    <group
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/drawer_item_login"
+            android:title="@string/drawer_item_title_login" />
+        <item
+            android:id="@+id/drawer_item_logout"
+            android:title="@string/drawer_item_title_logout" />
+        <item
+            android:id="@+id/main_settings_fragment"
+            android:title="@string/drawer_item_title_main_settings"/>
+    </group>
+
+</menu>

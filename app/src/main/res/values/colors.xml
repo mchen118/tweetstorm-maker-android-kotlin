@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="twitter_blue">#FF1DA1F2</color>
+    <color name="twitter_black">#FF14171A</color>
+    <color name="twitter_dark_gray">#FF657786</color>
+    <color name="twitter_light_gray">#FFAAB8C2</color>
+    <color name="twitter_extra_light_gray">#FFE1E8ED</color>
+    <color name="twitter_extra_extra_light_gray">#FFF5F8FA</color>
+
+    <color name="even_lighter_blue">#FF6BB2E8</color>
+    <color name="lighter_blue">#FF3090D9</color>
+    <color name="base_blue">#FF005EA6</color>
+    <color name="deeper_blue">#FF073F6B</color>
+
+    <color name="draftTextViewBackground">#FFEDDDC3</color>
+    <color name="twitterEntityTextColor">#FF3123FF</color>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="draft"
+            type="LiveData&lt;Draft&gt;" />
+        <variable
+            name="twitterApiViewModel"
+            type="com.muchen.tweetstormmaker.androidui.viewmodel.TwitterViewModel" />
+        <variable
+            name="hasInternetAccess"
+            type="com.muchen.tweetstormmaker.androidui.livedata.InternetAccessLiveData" />
+
+        <import type="com.muchen.tweetstormmaker.androidui.model.SentStatusEnum"/>
+        <import type="android.view.View"/>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.muchen.tweetstormmaker.androidui.model.Draft"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view_draft"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:background="@color/draftTextViewBackground"
+            android:gravity="center"
+            android:text="@{draft.content}"
+            app:twitterEntityTextColor="@{@color/twitterEntityTextColor}"
+            app:layout_constraintBottom_toTopOf="@id/view_group_btns"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/view_group_btns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintTop_toBottomOf="@id/text_view_draft"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_unsend"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:text="@string/btn_label_unsend"
+                android:enabled="@{twitterApiViewModel.twitterUserAndTokens != null &amp;&amp; hasInternetAccess}"/>
+
+            <Button
+                android:id="@+id/btn_discard_non_local"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_weight="1.5"
+                android:text="@string/btn_label_discard_non_local"
+                android:visibility="@{draft.sentStatus == SentStatusEnum.FULLY_SENT ? View.VISIBLE : View.GONE}"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

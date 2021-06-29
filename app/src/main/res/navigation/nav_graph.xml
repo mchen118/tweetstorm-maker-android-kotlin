@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/local_list_fragment">
+    <fragment
+        android:id="@+id/local_list_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.listfragment.LocalListFragment"
+        android:label="@string/nav_label_local_list_fragment"
+        tools:layout="@layout/fragment_list_local">
+        <action
+            android:id="@+id/action_local_list_fragment_to_local_edit_fragment"
+            app:destination="@id/local_edit_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/partially_sent_list_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.listfragment.PartiallySentListFragment"
+        android:label="@string/nav_label_partially_sent_list_fragment"
+        tools:layout="@layout/fragment_list_partially_sent">
+        <action
+            android:id="@+id/action_partially_sent_list_fragment_to_non_local_edit_fragment"
+            app:destination="@id/non_local_edit_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sent_list_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.listfragment.SentListFragment"
+        android:label="@string/nav_label_sent_list_fragment"
+        tools:layout="@layout/fragment_list_sent">
+        <action
+            android:id="@+id/action_sent_list_fragment_to_non_local_edit_fragment"
+            app:destination="@id/non_local_edit_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/local_edit_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.editfragment.LocalEditFragment"
+        android:label="@string/nav_label_local_edit_fragment"
+        tools:layout="@layout/fragment_edit_local">
+        <argument
+            android:name="timeCreated"
+            app:argType="long" />
+        <argument
+            android:name="isNewDraft"
+            app:argType="boolean"/>
+    </fragment>
+    <fragment
+        android:id="@+id/non_local_edit_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.editfragment.NonLocalEditFragment"
+        android:label="@string/nav_label_non_local_fragment"
+        tools:layout="@layout/fragment_edit_non_local">
+        <argument
+            android:name="timeCreated"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/main_settings_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.settingsfragment.MainSettingsFragment"
+        android:label="@string/nav_label_main_settings_fragment">
+    </fragment>
+    <dialog
+        android:id="@+id/redirect_dialog_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.dialogfragment.RedirectDialogFragment"
+        android:label="@string/nav_label_redirect_dialog_fragment">
+        <argument
+            android:name="authorizationUrl"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_redirect_dialog_fragment_to_pin_dialog_fragment"
+            app:destination="@id/pin_dialog_fragment"
+            app:popUpTo="@id/redirect_dialog_fragment"
+            app:popUpToInclusive="true"/>
+    </dialog>
+    <dialog
+        android:id="@+id/pin_dialog_fragment"
+        android:name="com.muchen.tweetstormmaker.androidui.view.dialogfragment.PinDialogFragment"
+        android:label="@string/nav_label_pin_dialog_fragment">
+    </dialog>
+    <action
+        android:id="@+id/action_to_redirect_dialog_fragment"
+        app:destination="@id/redirect_dialog_fragment"/>
+</navigation>

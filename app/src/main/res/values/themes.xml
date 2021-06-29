@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.TweetstormMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/base_blue</item>
+        <item name="colorPrimaryVariant">@color/deeper_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/lighter_blue</item>
+        <item name="colorSecondaryVariant">@color/lighter_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.TweetstormMaker.ToolBarTheme">
+        <!-- set color for navigation icon, search icon, and search text -->
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Theme.TweetstormMaker.NavViewTheme">
+        <!-- set color for menu item icon and text tint in selected state -->
+        <item name="colorPrimary">@color/base_blue</item>
+    </style>
+
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="draft"
+            type="LiveData&lt;Draft&gt;" />
+        <variable
+            name="twitterApiViewModel"
+            type="com.muchen.tweetstormmaker.androidui.viewmodel.TwitterViewModel" />
+        <variable
+            name="hasInternetAccess"
+            type="com.muchen.tweetstormmaker.androidui.livedata.InternetAccessLiveData" />
+        <variable
+            name="editTextNotNullNorBlank"
+            type="Boolean"/>
+        <import type="androidx.lifecycle.LiveData"/>
+        <import type="com.muchen.tweetstormmaker.androidui.model.Draft"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/edit_text_draft"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:gravity="center"
+            android:hint="@string/edit_text_hint_empty"
+            android:inputType="textMultiLine"
+            android:text="@{draft.content}"
+            android:background="@color/draftTextViewBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout_group_btns"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_group_btns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_text_draft"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/btn_tweet"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_marginEnd="@dimen/extra_small_margin"
+                android:text="@string/btn_label_tweet"
+                android:enabled="@{editTextNotNullNorBlank &amp;&amp; hasInternetAccess &amp;&amp; twitterApiViewModel.twitterUserAndTokens != null}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_discard_local"
+                app:layout_constraintHorizontal_weight="2" />
+
+            <Button
+                android:id="@+id/btn_discard_local"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_marginStart="@dimen/extra_small_margin"
+                android:text="@string/btn_label_discard_local"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_tweet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

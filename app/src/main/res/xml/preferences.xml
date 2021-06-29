@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SwitchPreferenceCompat
+        app:key="@string/preference_key_numbering_tweets"
+        app:summary="@string/preference_summary_numbering_tweets"
+        app:title="@string/preference_title_numbering_tweets"
+        app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/preference_key_save_to_draft_after_unsending_fully_sent"
+        app:summary="@string/preference_summary_save_to_draft_after_unsending_fully_sent"
+        app:title="@string/preference_title_save_to_draft_after_unsending_fully_sent"
+        app:defaultValue="false"/>
+
+</androidx.preference.PreferenceScreen>
