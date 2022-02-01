@@ -1,7 +1,7 @@
 package com.muchen.tweetstormmaker.interfaceadapter.usecase
 
 
-interface InputOutputUseCase<Input, Output>{
+interface InputOutputUseCase<Input, Output> {
 
     suspend fun execute(input: Input): Output
 }
@@ -14,7 +14,6 @@ interface OutputUseCase<Output> {
 interface InputUseCase<Input> {
 
     suspend fun execute(input: Input)
-
 }
 
 interface NoInputNoOutputUseCase {

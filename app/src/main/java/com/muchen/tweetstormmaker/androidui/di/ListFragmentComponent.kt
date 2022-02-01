@@ -7,12 +7,12 @@ import dagger.Component
 
 @FragmentScope
 @Component(modules = [ListFragmentModule::class])
-interface ListFragmentComponent{
+interface ListFragmentComponent {
 
     fun inject(baseListFragment: BaseListFragment)
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
 
         @BindsInstance
         fun navigationToEditFragment(navigationToEditFragment: (NavController, Long) -> Unit): Builder

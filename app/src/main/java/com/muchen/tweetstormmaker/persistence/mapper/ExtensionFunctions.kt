@@ -19,7 +19,7 @@ private typealias PSentStatusEnum = com.muchen.tweetstormmaker.persistence.model
 private typealias PSentStatus = Int
 
 fun IASentStatus.toPModel(): PSentStatus {
-    return when(this) {
+    return when (this) {
         IASentStatus.LOCAL -> PSentStatusEnum.LOCAL.ordinal
         IASentStatus.PARTIALLY_SENT -> PSentStatusEnum.PARTIALLY_SENT.ordinal
         IASentStatus.FULLY_SENT -> PSentStatusEnum.FULLY_SENT.ordinal
@@ -27,7 +27,7 @@ fun IASentStatus.toPModel(): PSentStatus {
 }
 
 fun PSentStatus.toIAModel(): IASentStatus {
-    return when(this) {
+    return when (this) {
         PSentStatusEnum.LOCAL.ordinal -> IASentStatus.LOCAL
         PSentStatusEnum.PARTIALLY_SENT.ordinal -> IASentStatus.PARTIALLY_SENT
         PSentStatusEnum.FULLY_SENT.ordinal -> IASentStatus.FULLY_SENT

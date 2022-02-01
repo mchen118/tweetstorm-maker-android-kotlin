@@ -1,6 +1,6 @@
 package com.muchen.tweetstormmaker.androidui.model
 
-enum class NotificationEnum{
+enum class NotificationEnum {
     LOGIN_SUCCESSFUL,
     LOGIN_FAILED,
     SEND_TWEETSTORM_SUCCESSFUL,

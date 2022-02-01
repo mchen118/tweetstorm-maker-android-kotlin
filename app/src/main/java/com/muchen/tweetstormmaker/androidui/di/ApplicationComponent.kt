@@ -14,7 +14,7 @@ interface ApplicationComponent {
     fun inject(application: TweetstormMakerApplication)
 
     @Component.Builder
-    interface Builder{
+    interface Builder {
 
         @BindsInstance
         fun applicationContext(applicationContext: Context): Builder

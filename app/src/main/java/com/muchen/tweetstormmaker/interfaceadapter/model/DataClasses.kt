@@ -15,15 +15,15 @@ data class UnsendTweetstormUseCaseOutput(val updatedDraftSentStatus: DraftSentSt
 data class UnsendMultipleTweetstormsUseCaseOutput(val updatedDraftSentStatusList: List<DraftSentStatus>,
                                                   val resultEnum: UnsendMultipleTweetstormsResultEnum)
 
-data class Draft (val timeCreated : Long,
-                  var content: String = "",
-                  var sentStatus: SentStatusEnum = SentStatusEnum.LOCAL,
-                  var sentIds: String = "")
+data class Draft(val timeCreated: Long,
+                 var content: String = "",
+                 var sentStatus: SentStatusEnum = SentStatusEnum.LOCAL,
+                 var sentIds: String = "")
 
-data class DraftContent(val timeCreated : Long,
+data class DraftContent(val timeCreated: Long,
                         var content: String)
 
-data class DraftSentStatus (val timeCreated : Long,
+data class DraftSentStatus (val timeCreated: Long,
                             var sentStatus: SentStatusEnum,
                             var sentIds: String)
 
