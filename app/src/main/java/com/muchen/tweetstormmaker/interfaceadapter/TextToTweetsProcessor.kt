@@ -2,6 +2,8 @@ package com.muchen.tweetstormmaker.interfaceadapter
 
 import com.twitter.twittertext.Extractor
 import com.twitter.twittertext.TwitterTextParser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.Comparator
 
@@ -54,8 +56,12 @@ class TextToTweetsProcessor(private val text: String,
     /**
      * @return content of the next tweet
      */
-    fun nextTweet(): String {
-        endIndex = textPartitioner.calculateEndIndex(startIndex, tweetNumber)
+    suspend fun nextTweet(): String {
+        var nextEndIndex: Int
+        withContext(Dispatchers.Default) {
+            nextEndIndex = textPartitioner.calculateEndIndex(startIndex, tweetNumber)
+        }
+        endIndex = nextEndIndex
 
         var nextTweet = text.substring(startIndex, endIndex)
         if (tweetNumber != 1) nextTweet = twitterHandle + twitterHandlePostfix + nextTweet
@@ -120,7 +126,7 @@ class TextToTweetsProcessor(private val text: String,
 
         /**
          * @param startIndex start index
-         * @return end index without taking [tweetMaxWeightedLength] into account
+         * @return end index without calculating the weighted length of a tweet
          */
         private fun getTentativeEndIndex(startIndex: Int): Int {
             // ensure tentativeEndIndex never goes out of bound

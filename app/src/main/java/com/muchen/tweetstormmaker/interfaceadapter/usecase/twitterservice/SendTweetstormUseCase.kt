@@ -22,7 +22,7 @@ class SendTweetstormUseCase(private val repo: ITwitterRepository)
                                               repo.SHORTENED_URL_LENGTH)
         var previousStatusId: String? = null
 
-        while(processor.hasNextTweet()) {
+        while (processor.hasNextTweet()) {
             previousStatusId = repo.sendTweet(processor.nextTweet(), previousStatusId)
             if (previousStatusId == null) break
             else sentStatusIdList.add(previousStatusId)
