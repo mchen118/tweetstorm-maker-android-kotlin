@@ -1,3 +1,6 @@
+# **IMPORTANT UPDATE [2023/04/22]**
+Because of Twitter's suspension of Twitter API v1.1, this app no longer functions. I have already pulled the app from Google Play store's public listings. I made the app originally in Java as a portfolio/practice project while I was senior computer science undergrad with little practical experience in coding. After graduation, I refined and refactored the app into Kotlin, and it helped me land my first CS job, which was in Android app development. Currently, I no longer work in Android app development in the industry, so there is no urgency for me to update this app to the new Twitter API v2.
+
 # Tweetstorm Maker Android Kotlin
 This is intended to be a newer version of Tweetstorm Maker on [Google Play Store](https://play.google.com/store/apps/details?id=com.muchen.tweetstormandroid.release), and [the original version written in Java](https://github.com/mchen118/tweetstorm-maker-android-java) will not be updated anymore.
 
