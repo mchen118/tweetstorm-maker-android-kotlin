@@ -12,14 +12,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import com.muchen.tweetstormmaker.R
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.DEFAULT_NUMBERING_TWEETS_VALUE
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.STYLE_EDIT_TEXT_DELAY_IN_MS
 import com.muchen.tweetstormmaker.androidui.model.DraftContent
-import com.muchen.tweetstormmaker.databinding.FragmentEditLocalBinding
+import com.muchen.tweetstormandroid.R
+import com.muchen.tweetstormandroid.databinding.FragmentEditLocalBinding
 import com.twitter.twittertext.Extractor
 import kotlinx.coroutines.*
-import java.util.*
 
 class LocalEditFragment : BaseEditFragment() {
 
@@ -28,6 +27,8 @@ class LocalEditFragment : BaseEditFragment() {
     private lateinit var binding: FragmentEditLocalBinding
 
     private val args: LocalEditFragmentArgs by navArgs()
+
+    private var firstTimeGetTextFromPersistence = true;
 
     private val textWatcher = object : TextWatcher {
 
@@ -43,19 +44,25 @@ class LocalEditFragment : BaseEditFragment() {
             onString = s.toString()
             Log.d(TAG, "textWatcher: before: $beforeString, on: $onString, replacement " +
                     "starts at position $start with $count characters")
+            if (twitterApiViewModel.twitterUserAndTokens.value != null &&
+                hasInternetAccess.value == true && onString?.isNotBlank() == true) {
+                binding.btnTweet.isEnabled = true;
+            } else {
+                binding.btnTweet.isEnabled = false;
+            }
         }
 
         override fun afterTextChanged(s: Editable?) {
             // guard against infinite loop
             if (beforeString != onString) {
-                binding.editTextNotNullNorBlank = !onString.isNullOrBlank()
                 lastJob?.cancel()
                 lastJob = lifecycleScope.launch(Dispatchers.Main) {
                     delay(STYLE_EDIT_TEXT_DELAY_IN_MS)
                     // could cause infinite loop if not protected by "beforeString != onString"
                     stylizeTwitterEntitiesInText(onString)
+                    // update draft persistence
                     if (!onString.isNullOrBlank()) {
-                        this@LocalEditFragment.draftsViewModel.updateDraftContent(
+                        draftsViewModel.updateDraftContent(
                                 DraftContent(timeCreated.value, onString!!))
                     }
                 }
@@ -75,19 +82,44 @@ class LocalEditFragment : BaseEditFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if (binding.editTextDraft.text.isNullOrBlank())
+        if (binding.editTextDraft.text.isNullOrBlank()) {
+            Log.d(TAG, "delete Draft due to empty content: ${timeCreated.value}")
             draftsViewModel.deleteDraftByTimeCreated(timeCreated.value)
+        }
     }
 
     private fun setupBinding() {
         binding.apply {
-            lifecycleOwner = this@LocalEditFragment
-            twitterApiViewModel = this@LocalEditFragment.twitterApiViewModel
-            hasInternetAccess = this@LocalEditFragment.hasInternetAccess
-            draft = this@LocalEditFragment.draftsViewModel.getDraftByTimeCreated(timeCreated.value)
             btnTweet.setOnClickListener { tweet() }
             btnDiscardLocal.setOnClickListener { discard() }
             editTextDraft.addTextChangedListener(textWatcher)
+            draftsViewModel.getDraftByTimeCreated(timeCreated.value).observe(viewLifecycleOwner) {
+                // We only need to sync the text according to persistence only once.
+                // The syncing afterwards always goes the opposite direction.
+                if (it != null && firstTimeGetTextFromPersistence) {
+                    Log.d(TAG, "draft is not null, call setText")
+                    editTextDraft.setText(it.content)
+                    // No need to call setSelection to reset the cursor position because
+                    // it's the first time.
+                    firstTimeGetTextFromPersistence = false;
+                }
+            }
+            twitterApiViewModel.twitterUserAndTokens.observe(viewLifecycleOwner) {
+                Log.d(TAG, "twitterUserAndTokens: ${it != null}, internet: ${hasInternetAccess.value}, text: ${editTextDraft.text.isNotEmpty()}");
+                if (it != null && hasInternetAccess.value == true && editTextDraft.text.isNotBlank()) {
+                    btnTweet.isEnabled = true;
+                } else {
+                    btnTweet.isEnabled = false;
+                }
+            }
+            hasInternetAccess.observe(viewLifecycleOwner) {
+                if (it == true && twitterApiViewModel.twitterUserAndTokens.value != null &&
+                        editTextDraft.text.isNotBlank()) {
+                    btnTweet.isEnabled = true;
+                } else {
+                    btnTweet.isEnabled = false;
+                }
+            }
         }
     }
 

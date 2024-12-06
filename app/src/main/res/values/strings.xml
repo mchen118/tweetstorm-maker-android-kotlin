@@ -38,6 +38,7 @@
     <string name="default_twitter_handle">\@your_twitter_handle</string>
 
     <string name="drawer_item_title_local_drafts">Drafts</string>
+    <string name="drawer_item_content_description_local_drafts">Click to navigate to local drafts</string>
     <string name="drawer_item_title_sent_tweetstorms">Sent</string>
     <string name="drawer_item_title_partially_sent_tweetstorms">Partially Sent</string>
     <string name="drawer_item_title_login">Login</string>

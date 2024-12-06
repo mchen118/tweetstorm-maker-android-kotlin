@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
 import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.databinding.FragmentListLocalBinding
+import com.muchen.tweetstormandroid.databinding.FragmentListLocalBinding
 
 class LocalListFragment : BaseListFragment() {
 
@@ -30,7 +30,7 @@ class LocalListFragment : BaseListFragment() {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val time = (viewHolder as DraftListAdapter.DraftViewHolder).binding.draft!!.timeCreated
+            val time = (viewHolder as DraftListAdapter.DraftViewHolder).draft.timeCreated
             draftsViewModel.deleteDraftByTimeCreated(time)
         }
     }
@@ -58,7 +58,11 @@ class LocalListFragment : BaseListFragment() {
     private fun subscribeUi() {
         draftsViewModel.localDrafts.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
-            (binding as FragmentListLocalBinding).listSize = list.size
+            if (list.isEmpty()) {
+                (binding as FragmentListLocalBinding).textViewEmptyList.visibility = View.VISIBLE
+            } else {
+                (binding as FragmentListLocalBinding).textViewEmptyList.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -77,5 +81,9 @@ class LocalListFragment : BaseListFragment() {
     @VisibleForTesting
     fun insertDraft(draft: Draft) {
         draftsViewModel.insertDraft(draft)
+    }
+
+    companion object {
+        val TAG = "LocalListFragment"
     }
 }

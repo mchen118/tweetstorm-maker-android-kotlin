@@ -6,6 +6,7 @@ import com.muchen.tweetstormmaker.interfaceadapter.InterfaceAdapterConstants.DEF
 import com.muchen.tweetstormmaker.interfaceadapter.TextToTweetsProcessor
 import com.muchen.tweetstormmaker.twitterservice.TwitterServiceConstants.API_SHORTENED_URL_LENGTH
 import com.muchen.tweetstormmaker.twitterservice.TwitterServiceConstants.API_TWEET_MAX_WEIGHTED_LENGTH
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 /** Copied from Twitter Text: The following unicode code point ranges
@@ -39,13 +40,14 @@ class UnitTestOnTextToTweetsProcessor {
         val text1 = "hello"
         val processor1 = TextToTweetsProcessor(text1, handle, handlePostFix,
                 numberPrefix, true, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor1.nextTweet()).isEqualTo(text1 + numberPrefix + "1")
-
+        runBlocking {
+            assertThat(processor1.nextTweet()).isEqualTo(text1 + numberPrefix + "1")
+        }
         val processor2 = TextToTweetsProcessor(text1, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor2.nextTweet()).isEqualTo(text1)
+        runBlocking {
+            assertThat(processor2.nextTweet()).isEqualTo(text1)
+        }
     }
 
     @Test
@@ -66,10 +68,10 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor1 = TextToTweetsProcessor(iliadOpening, handle, handlePostFix,
                 numberPrefix, true, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
-        assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1 )
-
+        runBlocking {
+            assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
+            assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1)
+        }
         val expectedFirstTweet2 = "Sing, O goddess, the anger of Achilles son of Peleus, " +
                 "that brought countless ills upon the Achaeans. Many a brave soul did it send " +
                 "hurrying down to Hades, and many a hero did it yield a prey to dogs and vultures, " +
@@ -80,9 +82,10 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor2 = TextToTweetsProcessor(iliadOpening, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
-        assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
+        runBlocking {
+            assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
+            assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
+        }
     }
 
     @Test
@@ -114,11 +117,11 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor1 = TextToTweetsProcessor(dongNiaoEntries, handle, handlePostFix,
                 numberPrefix, true, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
-        assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1)
-        assertThat(processor1.nextTweet()).isEqualTo(expectedThirdTweet1)
-
+        runBlocking {
+            assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
+            assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1)
+            assertThat(processor1.nextTweet()).isEqualTo(expectedThirdTweet1)
+        }
         val expectedFirstTweet2 = "-环颈鸻，是鸻形目鸻科鸻属的鸟类。台湾称为东方环颈鸻。因为其后颈基部白色，" +
                 "并向颈侧延伸，与前颈白色相连形成白色领圈，故而得名。该物种的模式产地在埃及。一般性常见鸟。\n" +
                 "戴胜，是犀鸟目戴胜科戴胜属的鸟类。又名胡哱哱、花蒲扇、山和尚、鸡冠鸟、臭姑鸪、咕咕翅。" +
@@ -133,10 +136,11 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor2 = TextToTweetsProcessor(dongNiaoEntries, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
-        assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
-        assertThat(processor2.nextTweet()).isEqualTo(expectedThirdTweet2)
+        runBlocking {
+            assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
+            assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
+            assertThat(processor2.nextTweet()).isEqualTo(expectedThirdTweet2)
+        }
     }
 
     @Test
@@ -155,8 +159,9 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor = TextToTweetsProcessor(stringWithLongUrl, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
+        runBlocking {
+            assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
+        }
     }
 
     @Test
@@ -175,10 +180,10 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor1 = TextToTweetsProcessor(stringWithTwoEntities1, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
-        assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1)
-
+        runBlocking {
+            assertThat(processor1.nextTweet()).isEqualTo(expectedFirstTweet1)
+            assertThat(processor1.nextTweet()).isEqualTo(expectedSecondTweet1)
+        }
         val stringWithTwoEntities2 = "$longPadding @jack环颈鸻google.com #hello world \$CUIQ"
 
         val expectedFirstTweet2 = "$longPadding @jack"
@@ -187,9 +192,10 @@ class UnitTestOnTextToTweetsProcessor {
 
         val processor2 = TextToTweetsProcessor(stringWithTwoEntities2, handle, handlePostFix,
                 numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
-
-        assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
-        assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
+        runBlocking {
+            assertThat(processor2.nextTweet()).isEqualTo(expectedFirstTweet2)
+            assertThat(processor2.nextTweet()).isEqualTo(expectedSecondTweet2)
+        }
     }
 
     @Test
@@ -212,8 +218,10 @@ class UnitTestOnTextToTweetsProcessor {
                     numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
 
         assertThat(longWord.length).isEqualTo(300)
-        assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
-        assertThat(processor.nextTweet()).isEqualTo(expectedSecondTweet)
+        runBlocking {
+            assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
+            assertThat(processor.nextTweet()).isEqualTo(expectedSecondTweet)
+        }
     }
 
     @Test
@@ -238,7 +246,9 @@ class UnitTestOnTextToTweetsProcessor {
             numberPrefix, false, tweetMaxWeightedLength, shortenedUrlLength)
 
         assertThat(longChineseBlob.length).isEqualTo(160)
-        assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
-        assertThat(processor.nextTweet()).isEqualTo(expectedSecondTweet)
+        runBlocking {
+            assertThat(processor.nextTweet()).isEqualTo(expectedFirstTweet)
+            assertThat(processor.nextTweet()).isEqualTo(expectedSecondTweet)
+        }
     }
 }

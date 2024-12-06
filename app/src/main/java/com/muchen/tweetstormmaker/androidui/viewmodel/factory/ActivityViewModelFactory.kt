@@ -9,7 +9,7 @@ class ActivityViewModelFactory (private val activityViewModelProvider: Map<Class
         @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory {
 
     @Suppress("unchecked")
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T: ViewModel> create(modelClass: Class<T>): T {
         Log.d(this::class.simpleName, "${activityViewModelProvider.keys}")
         return activityViewModelProvider[modelClass]!!.get() as T
     }

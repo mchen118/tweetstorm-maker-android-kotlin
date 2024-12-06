@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.muchen.tweetstormandroid.databinding.ItemDraftBinding
 import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.databinding.ItemDraftBinding
 
 class DraftListAdapter (val navigateToEditFragment: (NavController, Long) -> Unit)
     : ListAdapter<Draft, RecyclerView.ViewHolder>(DiffCallback()) {
@@ -25,13 +25,15 @@ class DraftListAdapter (val navigateToEditFragment: (NavController, Long) -> Uni
     inner class DraftViewHolder(val binding: ItemDraftBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        lateinit var draft: Draft
         fun bind(draftData: Draft) {
+            draft = draftData
             binding.apply {
-                draft = draftData
-                root.setOnClickListener{
-                    navigateToEditFragment(it.findNavController(), draft!!.timeCreated)
+                textViewDraft.text = draftData.content
+                root.setOnClickListener {
+                    navigateToEditFragment(it.findNavController(), draftData.timeCreated)
                 }
-                executePendingBindings()
+//                executePendingBindings()
             }
         }
     }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import com.muchen.tweetstormmaker.androidui.model.Draft
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
-import com.muchen.tweetstormmaker.databinding.FragmentListPartiallySentBinding
+import com.muchen.tweetstormandroid.databinding.FragmentListPartiallySentBinding
 
 class PartiallySentListFragment : BaseListFragment() {
 
@@ -41,8 +41,8 @@ class PartiallySentListFragment : BaseListFragment() {
     private fun setupBinding() {
         (binding as FragmentListPartiallySentBinding).apply {
             rvDraftList.adapter = this@PartiallySentListFragment.adapter
-            twitterApiViewModel = this@PartiallySentListFragment.twitterApiViewModel
-            hasInternetAccess = this@PartiallySentListFragment.hasInternetAccess
+//            twitterApiViewModel = this@PartiallySentListFragment.twitterApiViewModel
+//            hasInternetAccess = this@PartiallySentListFragment.hasInternetAccess
             btnRecallAllPartiallySentTweetstorms.setOnClickListener { unsendAllPartialTweetstorms() }
         }
     }
@@ -50,7 +50,7 @@ class PartiallySentListFragment : BaseListFragment() {
     private fun subscribeUi() {
         draftsViewModel.partiallySentDrafts.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
-            (binding as FragmentListPartiallySentBinding).listSize = list.size
+            // (binding as FragmentListPartiallySentBinding).listSize = list.size
         }
     }
 

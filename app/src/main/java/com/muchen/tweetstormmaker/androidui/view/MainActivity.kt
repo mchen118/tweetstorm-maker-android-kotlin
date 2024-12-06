@@ -19,8 +19,10 @@ import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
-import com.muchen.tweetstormmaker.NavGraphDirections
-import com.muchen.tweetstormmaker.R
+import com.muchen.tweetstormandroid.R
+import com.muchen.tweetstormandroid.databinding.ActivityMainBinding
+import com.muchen.tweetstormandroid.databinding.HeaderNavDrawerBinding
+import com.muchen.tweetstormandroid.NavGraphDirections
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.HDPI
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.PROFILE_IMG_DIMEN
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.PROFILE_IMG_FILE_NAME
@@ -33,8 +35,6 @@ import com.muchen.tweetstormmaker.androidui.toAccessTokens
 import com.muchen.tweetstormmaker.androidui.viewmodel.DraftsViewModel
 import com.muchen.tweetstormmaker.androidui.viewmodel.TwitterViewModel
 import com.muchen.tweetstormmaker.androidui.viewmodel.factory.ActivityViewModelFactory
-import com.muchen.tweetstormmaker.databinding.ActivityMainBinding
-import com.muchen.tweetstormmaker.databinding.HeaderNavDrawerBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -225,7 +225,7 @@ class MainActivity : AppCompatActivity() {
             setLoginVisible(false)
             drawerHeaderBinding.textViewTwitterName.text = data.name
             drawerHeaderBinding.textViewTwitterHandle.text = "@${data.screenName}"
-            try{
+            try {
                 useCachedProfileImage()
             } catch (e: FileNotFoundException) {
                 downloadProfileImage(data.profileImageURLHttps)
@@ -260,7 +260,7 @@ class MainActivity : AppCompatActivity() {
     private fun useCachedProfileImage() {
         val drawable = Drawable.createFromStream(openFileInput(PROFILE_IMG_FILE_NAME), "")
         drawerHeaderBinding.imageViewProfileImage.setImageDrawable(
-            drawable.toBitmap(profileImgScaledLength, profileImgScaledLength).toDrawable(resources))
+            drawable?.toBitmap(profileImgScaledLength, profileImgScaledLength)?.toDrawable(resources))
     }
 
     private fun downloadProfileImage(url: String) {
@@ -272,11 +272,11 @@ class MainActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     drawerHeaderBinding.imageViewProfileImage.setImageDrawable(
-                        drawable.toBitmap(profileImgScaledLength, profileImgScaledLength).toDrawable(resources))
+                        drawable?.toBitmap(profileImgScaledLength, profileImgScaledLength)?.toDrawable(resources))
                 }
 
                 val outputStream = openFileOutput(PROFILE_IMG_FILE_NAME, MODE_PRIVATE)
-                drawable.toBitmap().compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                drawable?.toBitmap()?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
                 outputStream.close()
             } catch (e: Exception) {
                 when(e) {

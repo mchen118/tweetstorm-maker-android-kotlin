@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import com.muchen.tweetstormmaker.R
-import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.databinding.FragmentEditNonLocalBinding
+import com.muchen.tweetstormandroid.R
+import com.muchen.tweetstormandroid.databinding.FragmentEditNonLocalBinding
 
 class NonLocalEditFragment : BaseEditFragment() {
 
@@ -30,12 +29,10 @@ class NonLocalEditFragment : BaseEditFragment() {
 
     private fun setupBinding() {
         binding.apply {
-            lifecycleOwner = this@NonLocalEditFragment
-            twitterApiViewModel = this@NonLocalEditFragment.twitterApiViewModel
-            hasInternetAccess = this@NonLocalEditFragment.hasInternetAccess
-            draft = this@NonLocalEditFragment.draftsViewModel.getDraftByTimeCreated(timeCreated.value)
             btnUnsend.setOnClickListener { unsend() }
             btnDiscardNonLocal.setOnClickListener{ discard() }
+
+
         }
     }
 
@@ -43,6 +40,7 @@ class NonLocalEditFragment : BaseEditFragment() {
         val keyString = getString(R.string.preference_key_save_to_draft_after_unsending_fully_sent)
         val keepInDraft = PreferenceManager.getDefaultSharedPreferences(requireActivity())
                 .getBoolean(keyString, false)
-        twitterApiViewModel.unsendTweetstorm(binding.draft!!.value!!, keepInDraft)
+        twitterApiViewModel.unsendTweetstorm(
+                draftsViewModel.getDraftByTimeCreated(timeCreated.value).value!!, keepInDraft)
     }
 }

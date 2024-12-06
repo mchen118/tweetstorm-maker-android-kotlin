@@ -3,7 +3,7 @@ package com.muchen.tweetstormmaker.androidui.view.settingsfragment
 import android.os.Bundle
 import android.view.Menu
 import androidx.preference.PreferenceFragmentCompat
-import com.muchen.tweetstormmaker.R
+import com.muchen.tweetstormandroid.R
 
 class MainSettingsFragment: PreferenceFragmentCompat() {
 

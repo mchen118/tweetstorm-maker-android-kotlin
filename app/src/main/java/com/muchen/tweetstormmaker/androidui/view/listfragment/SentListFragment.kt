@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
-import com.muchen.tweetstormmaker.databinding.FragmentListSentBinding
+import com.muchen.tweetstormandroid.databinding.FragmentListSentBinding
 
 class SentListFragment : BaseListFragment() {
 
@@ -41,7 +41,7 @@ class SentListFragment : BaseListFragment() {
     private fun subscribeUi() {
         draftsViewModel.sentDrafts.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
-            (binding as FragmentListSentBinding).listSize = list.size
+            // (binding as FragmentListSentBinding).listSize = list.size
         }
     }
 

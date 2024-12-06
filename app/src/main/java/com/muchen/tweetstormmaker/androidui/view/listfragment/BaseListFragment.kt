@@ -1,19 +1,21 @@
 package com.muchen.tweetstormmaker.androidui.view.listfragment
 
+import android.util.Log
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import com.muchen.tweetstormmaker.R
+import androidx.viewbinding.ViewBinding
+import com.muchen.tweetstormandroid.R
+import com.muchen.tweetstormandroid.databinding.FragmentListLocalBinding
+import com.muchen.tweetstormandroid.databinding.FragmentListPartiallySentBinding
+import com.muchen.tweetstormandroid.databinding.FragmentListSentBinding
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
 import com.muchen.tweetstormmaker.androidui.di.DaggerListFragmentComponent
 import com.muchen.tweetstormmaker.androidui.model.Draft
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
-import com.muchen.tweetstormmaker.databinding.FragmentListLocalBinding
-import com.muchen.tweetstormmaker.databinding.FragmentListPartiallySentBinding
-import com.muchen.tweetstormmaker.databinding.FragmentListSentBinding
 import javax.inject.Inject
 
 // BaseListFragment shows search action in tool bar and provides injection method and injected members.
@@ -27,7 +29,7 @@ abstract class BaseListFragment : Fragment() {
     @Inject
     lateinit var adapter: DraftListAdapter
 
-    protected lateinit var binding: ViewDataBinding
+    protected lateinit var binding: ViewBinding
 
     protected val draftsViewModel by lazy { (requireActivity() as MainActivity).draftsViewModel }
 
@@ -44,9 +46,36 @@ abstract class BaseListFragment : Fragment() {
             }
             adapter.submitList(result)
             when (binding) {
-                is FragmentListLocalBinding -> (binding as FragmentListLocalBinding).listSize = result.size
-                is FragmentListPartiallySentBinding -> (binding as FragmentListPartiallySentBinding).listSize = result.size
-                is FragmentListSentBinding -> (binding as FragmentListSentBinding).listSize = result.size
+                is FragmentListLocalBinding -> {
+                    val specificBinding = binding as FragmentListLocalBinding
+                    if (result.isEmpty()) {
+                        specificBinding.rvDraftList.visibility = View.INVISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.VISIBLE
+                    } else {
+                        specificBinding.rvDraftList.visibility = View.VISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.INVISIBLE
+                    }
+                }
+                is FragmentListPartiallySentBinding -> {
+                    val specificBinding = binding as FragmentListPartiallySentBinding
+                    if (result.isEmpty()) {
+                        specificBinding.rvDraftList.visibility = View.INVISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.VISIBLE
+                    } else {
+                        specificBinding.rvDraftList.visibility = View.VISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.INVISIBLE
+                    }
+                }
+                is FragmentListSentBinding -> {
+                    val specificBinding = binding as FragmentListSentBinding
+                    if (result.isEmpty()) {
+                        specificBinding.rvDraftList.visibility = View.INVISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.VISIBLE
+                    } else {
+                        specificBinding.rvDraftList.visibility = View.VISIBLE
+                        specificBinding.textViewEmptyList.visibility = View.INVISIBLE
+                    }
+                }
             }
             return true
         }

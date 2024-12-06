@@ -2,10 +2,10 @@ package com.muchen.tweetstormmaker.twitterservice
 
 object TwitterServiceConstants {
 
-    const val API_BASE_URL = "https://api.twitter.com/"
-    const val API_REQUEST_TOKEN_ENDPOINT_URL = "https://api.twitter.com/oauth/request_token"
-    const val API_AUTHORIZE_ENDPOINT_URL = "https://api.twitter.com/oauth/authorize"
-    const val API_ACCESS_TOKEN_ENDPOINT_URL = "https://api.twitter.com/oauth/access_token"
+    const val API_BASE_URL = "https://api.x.com/"
+    const val API_REQUEST_TOKEN_ENDPOINT_URL = "https://api.x.com/oauth/request_token"
+    const val API_AUTHORIZE_ENDPOINT_URL = "https://api.x.com/oauth/authorize"
+    const val API_ACCESS_TOKEN_ENDPOINT_URL = "https://api.x.com/oauth/access_token"
     const val API_OAUTH_PATH = "/oauth/"
     const val API_NON_OAUTH_PATH = "/1.1/"
 

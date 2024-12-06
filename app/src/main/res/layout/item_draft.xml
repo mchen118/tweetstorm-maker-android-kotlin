@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="draft"
-            type="com.muchen.tweetstormmaker.androidui.model.Draft"/>
-    </data>
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="draft"-->
+<!--            type="com.muchen.tweetstormmaker.androidui.model.Draft"/>-->
+<!--    </data>-->
 
     <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="@dimen/recycler_view_item_height"
         android:layout_marginBottom="@dimen/default_margin"
@@ -22,9 +24,8 @@
             android:paddingEnd="@dimen/small_margin"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="@{draft.content}"
             android:maxLines="3" />
 
     </androidx.cardview.widget.CardView>
 
-</layout>
+<!--</layout>-->

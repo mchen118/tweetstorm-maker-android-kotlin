@@ -5,9 +5,9 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
-import com.muchen.tweetstormmaker.R
+import com.muchen.tweetstormandroid.R
+import com.muchen.tweetstormandroid.databinding.FragmentDialogPinBinding
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
-import com.muchen.tweetstormmaker.databinding.FragmentDialogPinBinding
 
 class PinDialogFragment : DialogFragment() {
 

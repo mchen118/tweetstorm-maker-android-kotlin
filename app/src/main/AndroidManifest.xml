@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.muchen.tweetstormmaker">
+    package="com.muchen.tweetstormandroid">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -13,6 +13,7 @@
         android:theme="@style/Theme.TweetstormMaker">
         <activity
             android:name="com.muchen.tweetstormmaker.androidui.view.MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
             <intent-filter>

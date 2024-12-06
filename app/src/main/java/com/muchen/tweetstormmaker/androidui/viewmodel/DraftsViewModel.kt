@@ -32,18 +32,21 @@ class DraftsViewModel(private val draftsCRUDUseCases: DraftsCRUDUseCases) : View
 
     fun insertDraft(draft: Draft) {
         scope.launch(Dispatchers.IO) {
+            Log.d(TAG, "insert Draft: ${draft.timeCreated}")
             draftsCRUDUseCases.insertDraft(draft.toIAModel())
         }
     }
 
     fun deleteDraftByTimeCreated(time: Long) {
         scope.launch(Dispatchers.IO) {
+            Log.d(TAG, "delete Draft: ${time}")
             draftsCRUDUseCases.deleteDraftByTimeCreated(time)
         }
     }
 
     fun updateDraftContent(partialDraft: DraftContent) {
         scope.launch(Dispatchers.IO) {
+            Log.d(TAG, "update Draft content: ${partialDraft.timeCreated}")
             draftsCRUDUseCases.updateDraftContent(partialDraft.toIAModel())
         }
     }
@@ -58,5 +61,9 @@ class DraftsViewModel(private val draftsCRUDUseCases: DraftsCRUDUseCases) : View
     override fun onCleared() {
         super.onCleared()
         Log.d(this::class.simpleName, "onCleared()")
+    }
+
+    companion object {
+        const val TAG = "DraftsViewModel"
     }
 }

@@ -3,7 +3,7 @@ package com.muchen.tweetstormmaker.androidui.view.editfragment
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.muchen.tweetstormmaker.R
+import com.muchen.tweetstormandroid.R
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
 
 abstract class BaseEditFragment : Fragment() {

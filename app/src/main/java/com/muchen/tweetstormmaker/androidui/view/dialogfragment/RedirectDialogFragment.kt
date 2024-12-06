@@ -8,7 +8,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.muchen.tweetstormmaker.R
+import com.muchen.tweetstormandroid.R
 
 class RedirectDialogFragment : DialogFragment() {
 
