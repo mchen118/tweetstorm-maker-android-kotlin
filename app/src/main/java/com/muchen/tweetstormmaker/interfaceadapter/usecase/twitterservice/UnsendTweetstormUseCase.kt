@@ -1,5 +1,6 @@
 package com.muchen.tweetstormmaker.interfaceadapter.usecase.twitterservice
 
+import android.util.Log
 import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 import com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum
 import com.muchen.tweetstormmaker.interfaceadapter.model.UnsendTweetStormResultEnum
@@ -13,20 +14,21 @@ class UnsendTweetstormUseCase(private val repo: ITwitterRepository)
     : InputOutputUseCase<Draft, UnsendTweetstormUseCaseOutput> {
 
     override suspend fun execute(input: Draft): UnsendTweetstormUseCaseOutput {
-        var hasEncounteredIOFailure = false
+        var hasEncounteredFailure = false
         val remainingStatusIdList = ArrayList<String>(input.sentIds.split(","))
         for (i in remainingStatusIdList.size -1 downTo 0) {
             when (repo.findTweet(remainingStatusIdList[i])) {
                 true -> continue
                 false -> remainingStatusIdList.removeAt(i)
                 null -> {
-                    hasEncounteredIOFailure = true
+                    hasEncounteredFailure = true
                     break
                 }
             }
         }
 
-        if (hasEncounteredIOFailure) {
+        if (hasEncounteredFailure) {
+            Log.e(TAG, "has encountered failure")
             val newDraftSentStatus = input.toDraftSentStatus().apply {
                 sentIds = remainingStatusIdList.toCSVString()
             }
@@ -35,6 +37,7 @@ class UnsendTweetstormUseCase(private val repo: ITwitterRepository)
 
         var resultEnum = UnsendTweetStormResultEnum.FULLY_UNSENT
         val remainingStatusIdListSize = remainingStatusIdList.size
+        Log.d(TAG, "remaining tweets: $remainingStatusIdListSize")
         for (i in remainingStatusIdListSize - 1 downTo 0) {
             if (repo.deleteTweet(remainingStatusIdList[i])) remainingStatusIdList.removeAt(i)
             else {
@@ -55,5 +58,9 @@ class UnsendTweetstormUseCase(private val repo: ITwitterRepository)
             }
         }
         return UnsendTweetstormUseCaseOutput(newDraftSentStatus, resultEnum)
+    }
+
+    companion object {
+        const val TAG = "UnsendTweetstormUseCase"
     }
 }

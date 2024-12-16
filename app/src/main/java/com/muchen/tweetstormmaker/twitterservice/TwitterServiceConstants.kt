@@ -9,8 +9,6 @@ object TwitterServiceConstants {
     const val API_OAUTH_PATH = "/oauth/"
     const val API_NON_OAUTH_PATH = "/1.1/"
 
-    const val API_FIELD_STATUS = "status"
-    const val API_FIELD_REPLY_TO_STATUS_ID = "in_reply_to_status_id"
     const val API_TWEET_MAX_WEIGHTED_LENGTH = 280
     const val API_SHORTENED_URL_LENGTH = 23
 

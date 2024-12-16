@@ -13,4 +13,5 @@ class TwitterUser(
     var screenName: String = "",
 
     @SerializedName("profile_image_url_https")
-    var profileImageURLHttps: String = "")
+    var profileImageURLHttps: String = ""
+)

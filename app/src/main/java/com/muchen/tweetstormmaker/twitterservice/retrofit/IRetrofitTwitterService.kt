@@ -1,6 +1,9 @@
 package com.muchen.tweetstormmaker.twitterservice.retrofit
 
-import com.muchen.tweetstormmaker.twitterservice.retrofit.model.TwitterStatusId
+import com.muchen.tweetstormmaker.twitterservice.retrofit.model.DeletedWrapper
+import com.muchen.tweetstormmaker.twitterservice.retrofit.model.FindTweetResultWrapper
+import com.muchen.tweetstormmaker.twitterservice.retrofit.model.ReplyWrapper
+import com.muchen.tweetstormmaker.twitterservice.retrofit.model.TweetIdWrapper
 import com.muchen.tweetstormmaker.twitterservice.retrofit.model.TwitterUser
 import retrofit2.Call
 import retrofit2.http.*
@@ -10,17 +13,17 @@ interface IRetrofitTwitterService {
     @GET("1.1/account/verify_credentials.json")
     fun fetchUser(): Call<TwitterUser>
 
-    @FormUrlEncoded
-    @POST("1.1/statuses/update.json")
-    fun postTweet(@Field("status") status: String): Call<TwitterStatusId>
+    @Headers("Content-Type: application/json")
+    @POST("2/tweets")
+    fun postTweet(@Body map: Map<String, String>): Call<TweetIdWrapper>
 
-    @FormUrlEncoded
-    @POST("1.1/statuses/update.json")
-    fun replyToTweet(@FieldMap options: Map<String, String>): Call<TwitterStatusId>
+    @Headers("Content-Type: application/json")
+    @POST("2/tweets")
+    fun replyToTweet(@Body replyToTweet: ReplyWrapper): Call<TweetIdWrapper>
 
-    @GET("1.1/statuses/show/{id}.json")
-    fun findTweetWithId(@Path("id", encoded = true) statusId: String): Call<TwitterStatusId>
+    @GET("2/tweets/{id}")
+    fun findTweetWithId(@Path("id", encoded = true) id: String): Call<FindTweetResultWrapper>
 
-    @POST("1.1/statuses/destroy/{id}.json")
-    fun deleteTweet(@Path("id", encoded = true) statusId: String): Call<TwitterStatusId>
+    @DELETE("2/tweets/{id}")
+    fun deleteTweet(@Path("id", encoded = true) id: String): Call<DeletedWrapper>
 }
