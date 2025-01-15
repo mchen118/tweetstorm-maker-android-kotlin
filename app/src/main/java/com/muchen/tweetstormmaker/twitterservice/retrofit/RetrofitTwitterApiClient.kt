@@ -49,12 +49,12 @@ open class RetrofitTwitterApiClient(private val API_KEY: String,
     )
 
     private val retrofitTwitterService by lazy {
-//        val loggingInterceptor = HttpLoggingInterceptor().apply {
-//            setLevel(HttpLoggingInterceptor.Level.BODY)
-//        }
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BODY)
+        }
         val client = OkHttpClient.Builder()
                 .addInterceptor(SigningInterceptor(consumer))
-//                .addInterceptor(loggingInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .callTimeout(otherCallTimeout, TimeUnit.MILLISECONDS)
                 .build()
 

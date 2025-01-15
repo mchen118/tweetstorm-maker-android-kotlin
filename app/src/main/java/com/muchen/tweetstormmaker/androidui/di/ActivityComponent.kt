@@ -15,7 +15,7 @@ interface ActivityComponent {
     interface Builder {
 
         @BindsInstance
-        fun apiKey(@Named("API_KEY")apiKey: String): Builder
+        fun apiKey(@Named("API_KEY") apiKey: String): Builder
 
         @BindsInstance
         fun apiKeySecret(@Named("API_KEY_SECRET")apiKeySecret: String): Builder

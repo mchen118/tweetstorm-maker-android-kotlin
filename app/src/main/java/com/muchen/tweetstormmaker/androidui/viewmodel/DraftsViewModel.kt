@@ -10,51 +10,52 @@ import com.muchen.tweetstormmaker.androidui.mapper.toIAModel
 import com.muchen.tweetstormmaker.androidui.mapper.toUIModel
 import com.muchen.tweetstormmaker.androidui.model.Draft
 import com.muchen.tweetstormmaker.androidui.model.DraftContent
-import com.muchen.tweetstormmaker.interfaceadapter.usecase.database.DraftsCRUDUseCases
+import com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum
+import com.muchen.tweetstormmaker.interfaceadapter.repository.IPersistence
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DraftsViewModel(private val draftsCRUDUseCases: DraftsCRUDUseCases) : ViewModel() {
+class DraftsViewModel(private val persistence: IPersistence) : ViewModel() {
 
     val localDrafts: LiveData<List<Draft>> =
-            draftsCRUDUseCases.getLocalDrafts().toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.LOCAL).toUIModel().asLiveData()
 
     val partiallySentDrafts: LiveData<List<Draft>> =
-            draftsCRUDUseCases.getPartiallySentDrafts().toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.PARTIALLY_SENT).toUIModel().asLiveData()
 
     val sentDrafts: LiveData<List<Draft>> =
-            draftsCRUDUseCases.getSentDrafts().toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.FULLY_SENT).toUIModel().asLiveData()
 
     fun getDraftByTimeCreated(timeCreated: Long): LiveData<Draft?> =
-            draftsCRUDUseCases.getDraftByTimeCreated(timeCreated).toUIModel().asLiveData()
+        persistence.getDraftByTimeCreated(timeCreated).toUIModel().asLiveData()
 
     private val scope = viewModelScope
 
     fun insertDraft(draft: Draft) {
         scope.launch(Dispatchers.IO) {
             Log.d(TAG, "insert Draft: ${draft.timeCreated}")
-            draftsCRUDUseCases.insertDraft(draft.toIAModel())
+            persistence.insertDraft(draft.toIAModel())
         }
     }
 
     fun deleteDraftByTimeCreated(time: Long) {
         scope.launch(Dispatchers.IO) {
             Log.d(TAG, "delete Draft: ${time}")
-            draftsCRUDUseCases.deleteDraftByTimeCreated(time)
+            persistence.deleteDraftByTimeCreated(time)
         }
     }
 
     fun updateDraftContent(partialDraft: DraftContent) {
         scope.launch(Dispatchers.IO) {
             Log.d(TAG, "update Draft content: ${partialDraft.timeCreated}")
-            draftsCRUDUseCases.updateDraftContent(partialDraft.toIAModel())
+            persistence.updateDraftContent(partialDraft.toIAModel())
         }
     }
 
     @VisibleForTesting
     fun deleteAllDrafts() {
         scope.launch(Dispatchers.IO) {
-            draftsCRUDUseCases.deleteAllDrafts()
+            persistence.deleteAllDrafts()
         }
     }
 

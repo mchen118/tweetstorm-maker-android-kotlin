@@ -217,7 +217,7 @@ class IntegrationTestOnTwitterServiceImpl {
     }
 
     @Test
-    fun findTweet_failure_not_found() {
+    fun findTweet_failure_404() {
         mockServer.enqueue(findTweetResponseFailure)
         nonOauthBaseUrl = mockServer.url(API_NON_OAUTH_PATH).toString()
         oAuthBaseUrl = ""
@@ -225,7 +225,7 @@ class IntegrationTestOnTwitterServiceImpl {
         runBlocking {
             val resultBoolean = serviceImpl.value.findTweet("32156")
 
-            assertThat(resultBoolean).isFalse()
+            assertThat(resultBoolean).isNull()
         }
     }
 
@@ -373,107 +373,15 @@ class IntegrationTestOnTwitterServiceImpl {
 
         private val findTweetResponseSuccess = MockResponse()
             .setBody("{\n" +
-                    "  \"created_at\": \"Wed Oct 10 20:19:24 +0000 2018\",\n" +
-                    "  \"id\": 1050118621198921728,\n" +
-                    "  \"id_str\": \"1050118621198921728\",\n" +
-                    "  \"text\": \"To make room for more expression, we will now count all emojis as equal—including those with gender\u200D\u200D\u200D and skin t… https://t.co/MkGjXf9aXm\",\n" +
-                    "  \"truncated\": true,\n" +
-                    "  \"entities\": {\n" +
-                    "    \"hashtags\": [],\n" +
-                    "    \"symbols\": [],\n" +
-                    "    \"user_mentions\": [],\n" +
-                    "    \"urls\": [\n" +
-                    "      {\n" +
-                    "        \"url\": \"https://t.co/MkGjXf9aXm\",\n" +
-                    "        \"expanded_url\": \"https://twitter.com/i/web/status/1050118621198921728\",\n" +
-                    "        \"display_url\": \"twitter.com/i/web/status/1…\",\n" +
-                    "        \"indices\": [\n" +
-                    "          117,\n" +
-                    "          140\n" +
-                    "        ]\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"source\": \"Twitter Web Client\",\n" +
-                    "  \"in_reply_to_status_id\": null,\n" +
-                    "  \"in_reply_to_status_id_str\": null,\n" +
-                    "  \"in_reply_to_user_id\": null,\n" +
-                    "  \"in_reply_to_user_id_str\": null,\n" +
-                    "  \"in_reply_to_screen_name\": null,\n" +
-                    "  \"user\": {\n" +
-                    "    \"id\": 6253282,\n" +
-                    "    \"id_str\": \"6253282\",\n" +
-                    "    \"name\": \"Twitter API\",\n" +
-                    "    \"screen_name\": \"TwitterAPI\",\n" +
-                    "    \"location\": \"San Francisco, CA\",\n" +
-                    "    \"description\": \"The Real Twitter API. Tweets about API changes, service issues and our Developer Platform. Don't get an answer? It's on my website.\",\n" +
-                    "    \"url\": \"https://t.co/8IkCzCDr19\",\n" +
-                    "    \"entities\": {\n" +
-                    "      \"url\": {\n" +
-                    "        \"urls\": [\n" +
-                    "          {\n" +
-                    "            \"url\": \"https://t.co/8IkCzCDr19\",\n" +
-                    "            \"expanded_url\": \"https://developer.twitter.com\",\n" +
-                    "            \"display_url\": \"developer.twitter.com\",\n" +
-                    "            \"indices\": [\n" +
-                    "              0,\n" +
-                    "              23\n" +
-                    "            ]\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      \"description\": {\n" +
-                    "        \"urls\": []\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"protected\": false,\n" +
-                    "    \"followers_count\": 6128663,\n" +
-                    "    \"friends_count\": 12,\n" +
-                    "    \"listed_count\": 12900,\n" +
-                    "    \"created_at\": \"Wed May 23 06:01:13 +0000 2007\",\n" +
-                    "    \"favourites_count\": 32,\n" +
-                    "    \"utc_offset\": null,\n" +
-                    "    \"time_zone\": null,\n" +
-                    "    \"geo_enabled\": null,\n" +
-                    "    \"verified\": true,\n" +
-                    "    \"statuses_count\": 3659,\n" +
-                    "    \"lang\": \"null\",\n" +
-                    "    \"contributors_enabled\": null,\n" +
-                    "    \"is_translator\": null,\n" +
-                    "    \"is_translation_enabled\": null,\n" +
-                    "    \"profile_background_color\": \"null\",\n" +
-                    "    \"profile_background_image_url\": \"null\",\n" +
-                    "    \"profile_background_image_url_https\": \"null\",\n" +
-                    "    \"profile_background_tile\": null,\n" +
-                    "    \"profile_image_url\": \"null\",\n" +
-                    "    \"profile_image_url_https\": \"https://pbs.twimg.com/profile_images/942858479592554497/BbazLO9L_normal.jpg\",\n" +
-                    "    \"profile_banner_url\": \"https://pbs.twimg.com/profile_banners/6253282/1497491515\",\n" +
-                    "    \"profile_link_color\": \"null\",\n" +
-                    "    \"profile_sidebar_border_color\": \"null\",\n" +
-                    "    \"profile_sidebar_fill_color\": \"null\",\n" +
-                    "    \"profile_text_color\": \"null\",\n" +
-                    "    \"profile_use_background_image\": null,\n" +
-                    "    \"has_extended_profile\": null,\n" +
-                    "    \"default_profile\": false,\n" +
-                    "    \"default_profile_image\": false,\n" +
-                    "    \"following\": null,\n" +
-                    "    \"follow_request_sent\": null,\n" +
-                    "    \"notifications\": null,\n" +
-                    "    \"translator_type\": \"null\"\n" +
-                    "  },\n" +
-                    "  \"geo\": null,\n" +
-                    "  \"coordinates\": null,\n" +
-                    "  \"place\": null,\n" +
-                    "  \"contributors\": null,\n" +
-                    "  \"is_quote_status\": false,\n" +
-                    "  \"retweet_count\": 161,\n" +
-                    "  \"favorite_count\": 296,\n" +
-                    "  \"favorited\": false,\n" +
-                    "  \"retweeted\": false,\n" +
-                    "  \"possibly_sensitive\": false,\n" +
-                    "  \"possibly_sensitive_appealable\": false,\n" +
-                    "  \"lang\": \"en\"\n" +
-                    "}")
+                    "  \"data\": \n" +
+                    "    {\n" +
+                    "      \"author_id\": \"2244994945\",\n" +
+                    "      \"created_at\": \"Wed Jan 06 18:40:40 +0000 2021\",\n" +
+                    "      \"id\": \"1050118621198921728\",\n" +
+                    "      \"text\": \"Learn how to use the user Tweet timeline and user mention timeline endpoints in the X API v2 to explore Tweet https://t.co/56a0vZUx7i\",\n" +
+                    "      \"username\": \"XDevelopers\"\n" +
+                    "    }\n" +
+                    "}\n")
         private val expectedFoundTweetStatusId = "1050118621198921728"
         private val findTweetResponseFailure = MockResponse().setResponseCode(404)
 
@@ -615,105 +523,9 @@ class IntegrationTestOnTwitterServiceImpl {
 
         private val deleteTweetResponseSuccess = MockResponse()
             .setBody("{\n" +
-                    "  \"coordinates\": null,\n" +
-                    "  \"favorited\": false,\n" +
-                    "  \"created_at\": \"Wed Aug 29 16:54:38 +0000 2012\",\n" +
-                    "  \"truncated\": false,\n" +
-                    "  \"id_str\": \"240854986559455234\",\n" +
-                    "  \"entities\": {\n" +
-                    "    \"urls\": [\n" +
-                    "      {\n" +
-                    "        \"expanded_url\": \"http://venturebeat.com/2012/08/29/vimeo-dropbox/#.UD5JLsYptSs.twitter\",\n" +
-                    "        \"url\": \"http://t.co/7UlkvZzM\",\n" +
-                    "        \"indices\": [\n" +
-                    "          69,\n" +
-                    "          89\n" +
-                    "        ],\n" +
-                    "        \"display_url\": \"venturebeat.com/2012/08/29/vim…\"\n" +
-                    "      }\n" +
-                    "    ],\n" +
-                    "    \"hashtags\": [\n" +
-                    "\n" +
-                    "    ],\n" +
-                    "    \"user_mentions\": [\n" +
-                    "\n" +
-                    "    ]\n" +
-                    "  },\n" +
-                    "  \"in_reply_to_user_id_str\": null,\n" +
-                    "  \"text\": \"Hello World\",\n" +
-                    "  \"contributors\": null,\n" +
-                    "  \"retweet_count\": 1,\n" +
-                    "  \"id\": 240854986559455234,\n" +
-                    "  \"in_reply_to_status_id_str\": null,\n" +
-                    "  \"geo\": null,\n" +
-                    "  \"retweeted\": false,\n" +
-                    "  \"in_reply_to_user_id\": null,\n" +
-                    "  \"possibly_sensitive\": false,\n" +
-                    "  \"place\": null,\n" +
-                    "  \"user\": {\n" +
-                    "    \"name\": \"Jason Costa\",\n" +
-                    "    \"profile_sidebar_border_color\": \"86A4A6\",\n" +
-                    "    \"profile_sidebar_fill_color\": \"A0C5C7\",\n" +
-                    "    \"profile_background_tile\": false,\n" +
-                    "    \"profile_image_url\": \"http://a0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg\",\n" +
-                    "    \"created_at\": \"Wed May 28 00:20:15 +0000 2008\",\n" +
-                    "    \"location\": \"\",\n" +
-                    "    \"is_translator\": true,\n" +
-                    "    \"follow_request_sent\": false,\n" +
-                    "    \"id_str\": \"14927800\",\n" +
-                    "    \"profile_link_color\": \"FF3300\",\n" +
-                    "    \"entities\": {\n" +
-                    "      \"url\": {\n" +
-                    "        \"urls\": [\n" +
-                    "          {\n" +
-                    "            \"expanded_url\": \"http://www.jason-costa.blogspot.com/\",\n" +
-                    "            \"url\": \"http://t.co/YCA3ZKY\",\n" +
-                    "            \"indices\": [\n" +
-                    "              0,\n" +
-                    "              19\n" +
-                    "            ],\n" +
-                    "            \"display_url\": \"jason-costa.blogspot.com\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      \"description\": {\n" +
-                    "        \"urls\": [\n" +
-                    "\n" +
-                    "        ]\n" +
-                    "      }\n" +
-                    "    },\n" +
-                    "    \"default_profile\": false,\n" +
-                    "    \"contributors_enabled\": false,\n" +
-                    "    \"url\": \"http://t.co/YCA3ZKY\",\n" +
-                    "    \"favourites_count\": 883,\n" +
-                    "    \"utc_offset\": -28800,\n" +
-                    "    \"id\": 14927800,\n" +
-                    "    \"profile_image_url_https\": \"https://si0.twimg.com/profile_images/1751674923/new_york_beard_normal.jpg\",\n" +
-                    "    \"profile_use_background_image\": true,\n" +
-                    "    \"listed_count\": 150,\n" +
-                    "    \"profile_text_color\": \"333333\",\n" +
-                    "    \"protected\": false,\n" +
-                    "    \"lang\": \"en\",\n" +
-                    "    \"followers_count\": 8760,\n" +
-                    "    \"time_zone\": \"Pacific Time (US & Canada)\",\n" +
-                    "    \"profile_background_image_url_https\": \"https://si0.twimg.com/images/themes/theme6/bg.gif\",\n" +
-                    "    \"verified\": false,\n" +
-                    "    \"profile_background_color\": \"709397\",\n" +
-                    "    \"notifications\": false,\n" +
-                    "    \"description\": \"Platform at Twitter\",\n" +
-                    "    \"geo_enabled\": true,\n" +
-                    "    \"statuses_count\": 5531,\n" +
-                    "    \"default_profile_image\": false,\n" +
-                    "    \"friends_count\": 166,\n" +
-                    "    \"profile_background_image_url\": \"http://a0.twimg.com/images/themes/theme6/bg.gif\",\n" +
-                    "    \"show_all_inline_media\": true,\n" +
-                    "    \"screen_name\": \"jasoncosta\",\n" +
-                    "    \"following\": false\n" +
-                    "  },\n" +
-                    "  \"possibly_sensitive_editable\": true,\n" +
-                    "  \"source\": \"Tweet Button\",\n" +
-                    "  \"in_reply_to_screen_name\": null,\n" +
-                    "  \"in_reply_to_status_id\": null\n" +
+                    "   \"data\": {\n" +
+                    "       \"deleted\" : true\n" +
+                    "   }\n" +
                     "}")
         private val expectedDeletedTweetStatusId = "240854986559455234"
         private val deleteTweetResponseFailure = MockResponse().setResponseCode(400)
