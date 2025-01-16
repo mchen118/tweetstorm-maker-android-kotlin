@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
-import com.muchen.tweetstormmaker.androidui.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 import com.muchen.tweetstormandroid.databinding.FragmentListLocalBinding
 
 class LocalListFragment : BaseListFragment() {

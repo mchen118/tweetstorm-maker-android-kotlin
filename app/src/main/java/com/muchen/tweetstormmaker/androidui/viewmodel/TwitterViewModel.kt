@@ -2,13 +2,11 @@ package com.muchen.tweetstormmaker.androidui.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.muchen.tweetstormmaker.androidui.mapper.toIAModel
-import com.muchen.tweetstormmaker.androidui.mapper.toUIModel
-import com.muchen.tweetstormmaker.androidui.model.AccessTokens
-import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.androidui.model.DraftContent
 import com.muchen.tweetstormmaker.androidui.model.NotificationEnum
-import com.muchen.tweetstormmaker.androidui.model.SentStatusEnum
+import com.muchen.tweetstormmaker.interfaceadapter.model.AccessTokens
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.DraftContent
+import com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum
 import com.muchen.tweetstormmaker.interfaceadapter.TextToTweetsProcessor
 import com.muchen.tweetstormmaker.interfaceadapter.combineIntoTwitterUserAndTokens
 import com.muchen.tweetstormmaker.interfaceadapter.model.DraftSentStatus
@@ -32,7 +30,7 @@ class TwitterViewModel(private val persistence: IPersistence,
     : ViewModel() {
 
     val twitterUserAndTokens =
-        persistence.getOneTwitterUserAndTokens().toUIModel().asLiveData()
+        persistence.getOneTwitterUserAndTokens().asLiveData()
 
     val authorizationUrl = MutableLiveData<String?>(null)
 
@@ -97,7 +95,7 @@ class TwitterViewModel(private val persistence: IPersistence,
 
     fun updateTokensWith(accessTokens: AccessTokens) {
         scope.launch(Dispatchers.Main) {
-            twitterService.setAccessTokens(accessTokens.toIAModel())
+            twitterService.setAccessTokens(accessTokens)
         }
     }
 
@@ -130,12 +128,12 @@ class TwitterViewModel(private val persistence: IPersistence,
 
         if (previousStatusId == null) {
             if (sentStatusIdList.isEmpty()) {
-                output.sentStatus = com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum.LOCAL
+                output.sentStatus = SentStatusEnum.LOCAL
             } else {
-                output.sentStatus = com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum.PARTIALLY_SENT
+                output.sentStatus = SentStatusEnum.PARTIALLY_SENT
             }
         } else {
-            output.sentStatus = com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum.FULLY_SENT
+            output.sentStatus = SentStatusEnum.FULLY_SENT
         }
         return output
     }
@@ -143,14 +141,14 @@ class TwitterViewModel(private val persistence: IPersistence,
     fun sendTweetStorm(draftContent: DraftContent, numberingTweets: Boolean) {
         _showProgressIndicator.value = true
         scope.launch(Dispatchers.Main) {
-            val input = SendTweetstormUseCaseInput(draftContent.toIAModel(),
+            val input = SendTweetstormUseCaseInput(draftContent,
                 "@${twitterUserAndTokens.value!!.screenName}",
                 numberingTweets = numberingTweets)
             val updatedSentStatus = _sendTweetStorm(input)
 
             persistence.updateDraftSentStatus(updatedSentStatus)
             _showProgressIndicator.value = false
-            showNotification.value = when (updatedSentStatus.sentStatus.toUIModel()) {
+            showNotification.value = when (updatedSentStatus.sentStatus) {
                 SentStatusEnum.FULLY_SENT ->
                         NotificationEnum.SEND_TWEETSTORM_SUCCESSFUL
                 SentStatusEnum.PARTIALLY_SENT ->
@@ -212,7 +210,7 @@ class TwitterViewModel(private val persistence: IPersistence,
     fun unsendTweetstorm(tweetstorm: Draft, keepInDraft: Boolean) {
         _showProgressIndicator.value = true
         scope.launch(Dispatchers.Main) {
-            val output = _unsendTweetStorm(tweetstorm.toIAModel())
+            val output = _unsendTweetStorm(tweetstorm)
             if (!keepInDraft && (output.resultEnum == UnsendTweetStormResultEnum.FULLY_UNSENT)) {
                 persistence.deleteDraftByTimeCreated(tweetstorm.timeCreated)
             } else {
@@ -260,7 +258,7 @@ class TwitterViewModel(private val persistence: IPersistence,
     fun unsendTweetstorms(tweetstorms: List<Draft>) {
         _showProgressIndicator.value = true
         scope.launch(Dispatchers.Main) {
-            val output = _unsendTweetstorms(tweetstorms.toIAModel())
+            val output = _unsendTweetstorms(tweetstorms)
             _showProgressIndicator.value = false
             showNotification.value = when (output.resultEnum) {
                 UnsendMultipleTweetstormsResultEnum.FULLY_UNSENT ->

@@ -19,10 +19,10 @@ import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
+import com.muchen.tweetstormandroid.NavGraphDirections
 import com.muchen.tweetstormandroid.R
 import com.muchen.tweetstormandroid.databinding.ActivityMainBinding
 import com.muchen.tweetstormandroid.databinding.HeaderNavDrawerBinding
-import com.muchen.tweetstormandroid.NavGraphDirections
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.HDPI
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.PROFILE_IMG_DIMEN
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.PROFILE_IMG_FILE_NAME
@@ -30,11 +30,11 @@ import com.muchen.tweetstormmaker.androidui.TweetstormMakerApplication
 import com.muchen.tweetstormmaker.androidui.di.ActivityComponent
 import com.muchen.tweetstormmaker.androidui.model.NotificationEnum
 import com.muchen.tweetstormmaker.androidui.model.NotificationEnum.*
-import com.muchen.tweetstormmaker.androidui.model.TwitterUserAndTokens
-import com.muchen.tweetstormmaker.androidui.toAccessTokens
 import com.muchen.tweetstormmaker.androidui.viewmodel.DraftsViewModel
 import com.muchen.tweetstormmaker.androidui.viewmodel.TwitterViewModel
 import com.muchen.tweetstormmaker.androidui.viewmodel.factory.ActivityViewModelFactory
+import com.muchen.tweetstormmaker.interfaceadapter.model.TwitterUserAndTokens
+import com.muchen.tweetstormmaker.interfaceadapter.toAccessTokens
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

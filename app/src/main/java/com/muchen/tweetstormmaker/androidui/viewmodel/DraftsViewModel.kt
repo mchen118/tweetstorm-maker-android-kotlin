@@ -6,10 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.muchen.tweetstormmaker.androidui.mapper.toIAModel
-import com.muchen.tweetstormmaker.androidui.mapper.toUIModel
-import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.androidui.model.DraftContent
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.DraftContent
 import com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum
 import com.muchen.tweetstormmaker.interfaceadapter.repository.IPersistence
 import kotlinx.coroutines.Dispatchers
@@ -18,23 +16,23 @@ import kotlinx.coroutines.launch
 class DraftsViewModel(private val persistence: IPersistence) : ViewModel() {
 
     val localDrafts: LiveData<List<Draft>> =
-        persistence.getDraftsBySentStatus(SentStatusEnum.LOCAL).toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.LOCAL).asLiveData()
 
     val partiallySentDrafts: LiveData<List<Draft>> =
-        persistence.getDraftsBySentStatus(SentStatusEnum.PARTIALLY_SENT).toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.PARTIALLY_SENT).asLiveData()
 
     val sentDrafts: LiveData<List<Draft>> =
-        persistence.getDraftsBySentStatus(SentStatusEnum.FULLY_SENT).toUIModel().asLiveData()
+        persistence.getDraftsBySentStatus(SentStatusEnum.FULLY_SENT).asLiveData()
 
     fun getDraftByTimeCreated(timeCreated: Long): LiveData<Draft?> =
-        persistence.getDraftByTimeCreated(timeCreated).toUIModel().asLiveData()
+        persistence.getDraftByTimeCreated(timeCreated).asLiveData()
 
     private val scope = viewModelScope
 
     fun insertDraft(draft: Draft) {
         scope.launch(Dispatchers.IO) {
             Log.d(TAG, "insert Draft: ${draft.timeCreated}")
-            persistence.insertDraft(draft.toIAModel())
+            persistence.insertDraft(draft)
         }
     }
 
@@ -48,7 +46,7 @@ class DraftsViewModel(private val persistence: IPersistence) : ViewModel() {
     fun updateDraftContent(partialDraft: DraftContent) {
         scope.launch(Dispatchers.IO) {
             Log.d(TAG, "update Draft content: ${partialDraft.timeCreated}")
-            persistence.updateDraftContent(partialDraft.toIAModel())
+            persistence.updateDraftContent(partialDraft)
         }
     }
 

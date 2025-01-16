@@ -1,7 +1,10 @@
 package com.muchen.tweetstormmaker.androidui.view.editfragment
 
 import android.os.Bundle
-import android.text.*
+import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
@@ -12,13 +15,16 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.DEFAULT_NUMBERING_TWEETS_VALUE
-import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.STYLE_EDIT_TEXT_DELAY_IN_MS
-import com.muchen.tweetstormmaker.androidui.model.DraftContent
 import com.muchen.tweetstormandroid.R
 import com.muchen.tweetstormandroid.databinding.FragmentEditLocalBinding
+import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.DEFAULT_NUMBERING_TWEETS_VALUE
+import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.STYLE_EDIT_TEXT_DELAY_IN_MS
+import com.muchen.tweetstormmaker.interfaceadapter.model.DraftContent
 import com.twitter.twittertext.Extractor
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LocalEditFragment : BaseEditFragment() {
 

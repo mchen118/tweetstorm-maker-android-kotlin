@@ -15,8 +15,8 @@ import androidx.navigation.ui.R.string.nav_app_bar_open_drawer_description
 import androidx.navigation.ui.R.string.nav_app_bar_navigate_up_description
 import com.muchen.tweetstormmaker.androidui.AndroidUIConstants.DEFAULT_NUMBERING_TWEETS_VALUE
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
-import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.androidui.model.SentStatusEnum
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.SentStatusEnum
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
 import com.muchen.tweetstormmaker.androidui.view.listfragment.LocalListFragment
 import org.hamcrest.CoreMatchers.not

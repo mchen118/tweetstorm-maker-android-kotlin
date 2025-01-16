@@ -1,7 +1,6 @@
 package com.muchen.tweetstormmaker.androidui.view.editfragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import com.muchen.tweetstormandroid.R
 import com.muchen.tweetstormandroid.databinding.FragmentEditNonLocalBinding
-import com.muchen.tweetstormmaker.androidui.model.Draft
-import com.muchen.tweetstormmaker.androidui.view.editfragment.LocalEditFragment.Companion.TAG
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 
 class NonLocalEditFragment : BaseEditFragment() {
 

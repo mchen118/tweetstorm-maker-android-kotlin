@@ -14,7 +14,7 @@ import com.muchen.tweetstormandroid.databinding.FragmentListPartiallySentBinding
 import com.muchen.tweetstormandroid.databinding.FragmentListSentBinding
 import com.muchen.tweetstormmaker.androidui.adatper.DraftListAdapter
 import com.muchen.tweetstormmaker.androidui.di.DaggerListFragmentComponent
-import com.muchen.tweetstormmaker.androidui.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
 import javax.inject.Inject
 

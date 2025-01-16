@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.muchen.tweetstormandroid.databinding.ItemDraftBinding
-import com.muchen.tweetstormmaker.androidui.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 
 class DraftListAdapter (val navigateToEditFragment: (NavController, Long) -> Unit)
     : ListAdapter<Draft, RecyclerView.ViewHolder>(DiffCallback()) {

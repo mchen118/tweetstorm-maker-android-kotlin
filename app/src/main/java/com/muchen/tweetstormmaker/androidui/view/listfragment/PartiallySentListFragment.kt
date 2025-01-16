@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
-import com.muchen.tweetstormmaker.androidui.model.Draft
+import com.muchen.tweetstormmaker.interfaceadapter.model.Draft
 import com.muchen.tweetstormmaker.androidui.view.MainActivity
 import com.muchen.tweetstormandroid.databinding.FragmentListPartiallySentBinding
 
