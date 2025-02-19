@@ -51,12 +51,21 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
+                android:id="@+id/btn_preview"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/default_button_height"
+                android:text="@string/btn_label_preview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <Button
                 android:id="@+id/btn_tweet"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/default_button_height"
                 android:layout_marginEnd="@dimen/extra_small_margin"
                 android:text="@string/btn_label_tweet"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_preview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_discard_local"
                 app:layout_constraintHorizontal_weight="2" />
@@ -67,7 +76,7 @@
                 android:layout_height="@dimen/default_button_height"
                 android:layout_marginStart="@dimen/extra_small_margin"
                 android:text="@string/btn_label_discard_local"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_preview"
                 app:layout_constraintStart_toEndOf="@id/btn_tweet"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="1" />

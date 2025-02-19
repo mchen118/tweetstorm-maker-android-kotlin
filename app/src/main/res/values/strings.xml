@@ -4,20 +4,24 @@
     <string name="btn_label_save">Save Draft</string>
     <string name="btn_label_compose">Compose</string>
     <string name="btn_label_tweet">Tweet</string>
+    <string name="btn_label_back">Back</string>
     <string name="btn_label_discard_non_local">Discard Local Copy</string>
     <string name="btn_label_discard_local">Discard Draft</string>
     <string name="btn_label_unsend">Unsend</string>
+    <string name="btn_label_preview">Preview</string>
     <string name="btn_label_unsend_all_partially_sent_tweetstorms">Unsend All</string>
     <string name="btn_label_discard_all_sent_tweetstorms">Discard All Local Copies</string>
     <string name="btn_label_dialog_positive_button">OK</string>
     <string name="btn_label_dialog_negative_button">Cancel</string>
-
+    <string name="btn_label_dialog_yes_button">Yes</string>
+    <string name="btn_label_dialog_no_button">No</string>
     <string name="edit_text_hint_empty"/>
 
     <string name="action_view_title_search">Search</string>
 
     <string name="dialog_message_redirect_dialog">"You will be redirected to the following URL to authorize this app to tweet using your account: "</string>
     <string name="dialog_title_pin_dialog">ENTER YOUR PIN</string>
+    <string name="dialog_message_logout_dialog">Are you sure to log out?</string>
 
     <string name="notification_message_login_successful">Login Successful</string>
     <string name="notification_message_login_failed">Login Failed</string>
@@ -51,8 +55,10 @@
     <string name="nav_label_local_edit_fragment">Draft</string>
     <string name="nav_label_non_local_fragment">Tweetstorm</string>
     <string name="nav_label_main_settings_fragment">Settings</string>
+    <string name="nav_label_preview_list_fragment">Tweets Preview</string>
     <string name="nav_label_redirect_dialog_fragment"/>
     <string name="nav_label_pin_dialog_fragment"/>
+    <string name="nav_label_logout_dialog_fragment"/>
 
     <string name="list_is_empty">There is nothing to show.</string>
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
 import com.muchen.tweetstormandroid.R
@@ -96,6 +97,7 @@ class LocalEditFragment : BaseEditFragment() {
 
     private fun setupBinding() {
         binding.apply {
+            btnPreview.setOnClickListener { preview() }
             btnTweet.setOnClickListener { tweet() }
             btnDiscardLocal.setOnClickListener { discard() }
             editTextDraft.addTextChangedListener(textWatcher)
@@ -127,6 +129,11 @@ class LocalEditFragment : BaseEditFragment() {
                 }
             }
         }
+    }
+
+    private fun preview() {
+        findNavController().navigate(LocalEditFragmentDirections.
+                actionLocalEditFragmentToPreviewListFragment(timeCreated.value))
     }
 
     private fun tweet() {

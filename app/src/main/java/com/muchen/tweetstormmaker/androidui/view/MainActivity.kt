@@ -13,6 +13,7 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.navigateUp
@@ -132,17 +133,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    public fun openCloseNavDrawer(open: Boolean) {
+        if (open) {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        } else {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
+
     private fun setupNavDrawer() {
         binding.navView.apply {
             addHeaderView(drawerHeaderBinding.root)
             setupWithNavController(navController)
             setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.drawer_item_login -> twitterApiViewModel.startLogin()
-                    R.id.drawer_item_logout -> twitterApiViewModel.logout()
-                    else -> it.onNavDestinationSelected(navController)
+                    R.id.drawer_item_login -> {
+                        twitterApiViewModel.startLogin()
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                    R.id.drawer_item_logout -> {
+                        navController.navigate(NavGraphDirections.actionToLogoutDialogFragment())
+                    }
+                    else -> {
+                        it.onNavDestinationSelected(navController)
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    }
                 }
-                binding.drawerLayout.closeDrawer(GravityCompat.START)
+
                 true
             }
         }
@@ -211,7 +228,8 @@ class MainActivity : AppCompatActivity() {
     private fun onShowProgressIndicatorChanged(show: Boolean) {
         if (show) {
             when (navController.currentDestination?.id ) {
-                R.id.local_edit_fragment, R.id.non_local_edit_fragment -> navController.popBackStack()
+                R.id.local_edit_fragment,
+                R.id.non_local_edit_fragment -> navController.popBackStack()
             }
             binding.progressIndicator.isVisible = true
         } else {

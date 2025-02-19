@@ -28,6 +28,9 @@ import kotlinx.coroutines.launch
 class TwitterViewModel(private val persistence: IPersistence,
                        private val twitterService: ITwitterService)
     : ViewModel() {
+    val TWEET_MAX_WEIGHTED_LENGTH = twitterService.TWEET_MAX_WEIGHTED_LENGTH
+
+    val SHORTENED_URL_LENGTH = twitterService.SHORTENED_URL_LENGTH
 
     val twitterUserAndTokens =
         persistence.getOneTwitterUserAndTokens().asLiveData()
